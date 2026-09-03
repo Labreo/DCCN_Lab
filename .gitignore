@@ -1,0 +1,61 @@
+# ==============================================================================
+# .gitignore for DCCN Lab (Data Communication & Computer Networks)
+# ==============================================================================
+
+# --- Operating System Files ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# --- Editor & IDE Files ---
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+*.bak
+
+# --- Python Artifacts ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.pytest_cache/
+
+# --- C / C++ Compiled Binaries & Build Artifacts ---
+*.o
+*.obj
+*.out
+*.exe
+*.dSYM/
+# Compiled experiment binaries (if generated in folder)
+exp5/c_programs/saw
+exp5/c_programs/gbn
+exp5/c_programs/sr
+exp7/c_programs/bs
+exp7/c_programs/cs
+
+# --- Cisco Packet Tracer Temporary / Auto-Save Files ---
+*.pkz
+*.pks
+autosave.pkt
+*.log
+
+# --- Local Backups & Temporary Scripts ---
+*.original_backup
+*.tmp
+*.temp
+/tmp/
