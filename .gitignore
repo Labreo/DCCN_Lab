@@ -59,3 +59,4 @@ autosave.pkt
 *.tmp
 *.temp
 /tmp/
+exp6/generate_expt6_doc.py
