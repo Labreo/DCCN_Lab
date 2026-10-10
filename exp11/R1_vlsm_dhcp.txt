@@ -1,0 +1,63 @@
+! Cisco Router R1 Configuration (VLSM + Dynamic IP Addressing via DHCP)
+enable
+configure terminal
+hostname R1
+
+! DHCP Excluded Addresses (Reserve Default Gateways and Static Servers)
+ip dhcp excluded-address 192.168.1.1 192.168.1.10
+ip dhcp excluded-address 192.168.1.113 192.168.1.114
+
+! DHCP Pool 1: Engineering Department (60 hosts -> /26)
+ip dhcp pool ENG_POOL
+ network 192.168.1.0 255.255.255.192
+ default-router 192.168.1.1
+ dns-server 8.8.8.8
+ domain-name eng.gec.ac.in
+ lease 1 0 0
+exit
+
+! DHCP Pool 2: Server Farm (6 hosts -> /29)
+ip dhcp pool SERVER_POOL
+ network 192.168.1.112 255.255.255.248
+ default-router 192.168.1.113
+ dns-server 8.8.8.8
+ domain-name servers.gec.ac.in
+ lease 7 0 0
+exit
+
+! LAN Interfaces
+interface GigabitEthernet0/0/0
+ ip address 192.168.1.1 255.255.255.192
+ description LAN-Engineering (/26)
+ no shutdown
+exit
+
+interface GigabitEthernet0/0/1
+ ip address 192.168.1.113 255.255.255.248
+ description LAN-Server-Farm (/29)
+ no shutdown
+exit
+
+! WAN Interfaces (/30 Point-to-Point)
+interface Serial0/1/0
+ ip address 192.168.1.121 255.255.255.252
+ description WAN-to-R2 (/30)
+ clock rate 64000
+ no shutdown
+exit
+
+interface Serial0/1/1
+ ip address 192.168.1.130 255.255.255.252
+ description WAN-to-R3 (/30)
+ no shutdown
+exit
+
+! Routing configuration
+router rip
+ version 2
+ no auto-summary
+ network 192.168.1.0
+exit
+
+end
+write memory

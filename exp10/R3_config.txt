@@ -1,0 +1,40 @@
+! Cisco Router R3 Configuration (FLSM 192.168.10.0/27)
+enable
+configure terminal
+hostname R3
+
+! LAN Interface (Subnet 3: 192.168.10.64/27)
+interface GigabitEthernet0/0/0
+ ip address 192.168.10.65 255.255.255.224
+ description LAN-3 (Branch-East)
+ no shutdown
+exit
+
+! WAN Interface to R2 (Subnet 6: 192.168.10.160/27)
+interface GigabitEthernet0/0/1
+ ip address 192.168.10.162 255.255.255.224
+ description WAN-Link-R3-to-R2
+ no shutdown
+exit
+
+! WAN Interface to R4 (Subnet 7: 192.168.10.192/27)
+interface GigabitEthernet0/0/2
+ ip address 192.168.10.193 255.255.255.224
+ description WAN-Link-R3-to-R4
+ no shutdown
+exit
+
+! Static Routes
+! Route to LAN 1 (via R2)
+ip route 192.168.10.0 255.255.255.224 192.168.10.161
+! Route to LAN 2 (via R2)
+ip route 192.168.10.32 255.255.255.224 192.168.10.161
+! Route to LAN 4 (via R4)
+ip route 192.168.10.96 255.255.255.224 192.168.10.194
+! Route to WAN R1-R2 (via R2)
+ip route 192.168.10.128 255.255.255.224 192.168.10.161
+! Route to WAN R4-R1 (via R4)
+ip route 192.168.10.224 255.255.255.224 192.168.10.194
+
+end
+write memory

@@ -1,0 +1,58 @@
+! =========================================================================
+! CISCO PACKET TRACER CONFIGURATION: RIPv2 IMPLEMENTATION
+! =========================================================================
+
+! Router R1 Configuration (RIPv2)
+enable
+configure terminal
+hostname R1
+interface GigabitEthernet0/0/0
+ ip address 10.0.1.1 255.255.255.0
+ no shutdown
+exit
+interface Serial0/1/0
+ ip address 10.0.12.1 255.255.255.252
+ clock rate 64000
+ no shutdown
+exit
+interface Serial0/1/1
+ ip address 10.0.14.1 255.255.255.252
+ clock rate 64000
+ no shutdown
+exit
+router rip
+ version 2
+ no auto-summary
+ network 10.0.1.0
+ network 10.0.12.0
+ network 10.0.14.0
+exit
+end
+write memory
+
+! Router R2 Configuration (RIPv2)
+enable
+configure terminal
+hostname R2
+interface GigabitEthernet0/0/0
+ ip address 10.0.2.1 255.255.255.0
+ no shutdown
+exit
+interface Serial0/1/0
+ ip address 10.0.12.2 255.255.255.252
+ no shutdown
+exit
+interface Serial0/1/1
+ ip address 10.0.23.1 255.255.255.252
+ clock rate 64000
+ no shutdown
+exit
+router rip
+ version 2
+ no auto-summary
+ network 10.0.2.0
+ network 10.0.12.0
+ network 10.0.23.0
+exit
+end
+write memory

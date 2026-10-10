@@ -1,0 +1,47 @@
+! Cisco Router R2 Configuration (VLSM + Dynamic IP Addressing via DHCP)
+enable
+configure terminal
+hostname R2
+
+! DHCP Excluded Addresses
+ip dhcp excluded-address 192.168.1.65 192.168.1.70
+
+! DHCP Pool: Sales & Marketing Department (28 hosts -> /27)
+ip dhcp pool SALES_POOL
+ network 192.168.1.64 255.255.255.224
+ default-router 192.168.1.65
+ dns-server 8.8.8.8
+ domain-name sales.gec.ac.in
+ lease 1 0 0
+exit
+
+! LAN Interface
+interface GigabitEthernet0/0/0
+ ip address 192.168.1.65 255.255.255.224
+ description LAN-Sales (/27)
+ no shutdown
+exit
+
+! WAN Interfaces (/30 Point-to-Point)
+interface Serial0/1/0
+ ip address 192.168.1.122 255.255.255.252
+ description WAN-to-R1 (/30)
+ no shutdown
+exit
+
+interface Serial0/1/1
+ ip address 192.168.1.125 255.255.255.252
+ description WAN-to-R3 (/30)
+ clock rate 64000
+ no shutdown
+exit
+
+! Routing configuration
+router rip
+ version 2
+ no auto-summary
+ network 192.168.1.0
+exit
+
+end
+write memory

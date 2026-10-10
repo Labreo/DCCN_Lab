@@ -1,0 +1,47 @@
+! Cisco Router R3 Configuration (VLSM + Dynamic IP Addressing via DHCP)
+enable
+configure terminal
+hostname R3
+
+! DHCP Excluded Addresses
+ip dhcp excluded-address 192.168.1.97 192.168.1.100
+
+! DHCP Pool: Human Resources & Admin (12 hosts -> /28)
+ip dhcp pool HR_POOL
+ network 192.168.1.96 255.255.255.240
+ default-router 192.168.1.97
+ dns-server 8.8.8.8
+ domain-name admin.gec.ac.in
+ lease 1 0 0
+exit
+
+! LAN Interface
+interface GigabitEthernet0/0/0
+ ip address 192.168.1.97 255.255.255.240
+ description LAN-HR-Admin (/28)
+ no shutdown
+exit
+
+! WAN Interfaces (/30 Point-to-Point)
+interface Serial0/1/0
+ ip address 192.168.1.126 255.255.255.252
+ description WAN-to-R2 (/30)
+ no shutdown
+exit
+
+interface Serial0/1/1
+ ip address 192.168.1.129 255.255.255.252
+ description WAN-to-R1 (/30)
+ clock rate 64000
+ no shutdown
+exit
+
+! Routing configuration
+router rip
+ version 2
+ no auto-summary
+ network 192.168.1.0
+exit
+
+end
+write memory

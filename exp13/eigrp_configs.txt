@@ -1,0 +1,32 @@
+! =========================================================================
+! CISCO PACKET TRACER CONFIGURATION: EIGRP (AS 100) IMPLEMENTATION
+! =========================================================================
+
+! Router R1 Configuration (EIGRP)
+enable
+configure terminal
+hostname R1
+router eigrp 100
+ eigrp router-id 1.1.1.1
+ no auto-summary
+ network 10.0.1.0 0.0.0.255
+ network 10.0.12.0 0.0.0.3
+ network 10.0.14.0 0.0.0.3
+ variance 2
+exit
+end
+write memory
+
+! Router R2 Configuration (EIGRP)
+enable
+configure terminal
+hostname R2
+router eigrp 100
+ eigrp router-id 2.2.2.2
+ no auto-summary
+ network 10.0.2.0 0.0.0.255
+ network 10.0.12.0 0.0.0.3
+ network 10.0.23.0 0.0.0.3
+exit
+end
+write memory
