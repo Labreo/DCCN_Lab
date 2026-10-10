@@ -5,6 +5,7 @@ Digital Modulation Schemes (ASK, FSK, PSK) Using Open-Source Simulation
 """
 
 import os
+from docx.shared import Inches
 from builder_helpers import (
     add_exp_header_block, add_heading_1, add_heading_2,
     add_paragraph, add_bullet, add_table_data, add_image_figure,
@@ -118,7 +119,11 @@ def generate_modulations(bits=[1, 0, 1, 1, 0, 1, 0, 0], bit_rate=1000, carrier_f
     add_bullet(doc, "In PSK (BPSK), bit transitions from '1' to '0' or '0' to '1' trigger an instantaneous 180-degree phase reversal at bit boundaries.", bold_prefix="PSK Waveform: ")
     add_bullet(doc, "Coherent demodulation of all three signals recovered the exact original binary sequence [1, 0, 1, 1, 0, 1, 0, 0] with 0% Bit Error Rate (BER = 0.00).", bold_prefix="Demodulation Accuracy: ")
 
-    add_screenshot_box(doc, "Terminal Screenshot: Execution of modulation_simulation.py showing bit parameters, carrier frequency, AWGN SNR calculation, and 100% bitstream recovery confirmation")
+    add_image_figure(doc, 
+        os.path.join(WORKSPACE_DIR, "exp14/screenshot_terminal_modulation.png"), 
+        "Figure 14.3: Terminal Execution Screenshot — Python Digital Modulation Simulator Verification (0.00% BER)",
+        width=Inches(6.2)
+    )
 
     add_heading_1(doc, "PRECAUTIONS")
     add_bullet(doc, "The sampling frequency (fs) must be at least 10 times greater than the highest carrier frequency to avoid Nyquist aliasing and waveform distortion.")

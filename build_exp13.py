@@ -5,6 +5,7 @@ Packet Tracer Implementation and Performance Comparison of RIP, OSPF, and EIGRP
 """
 
 import os
+from docx.shared import Inches
 from builder_helpers import (
     add_exp_header_block, add_heading_1, add_heading_2,
     add_paragraph, add_bullet, add_table_data, add_image_figure,
@@ -125,9 +126,21 @@ R1(config-router)# exit"""
     add_bullet(doc, "RIP produced the highest bandwidth overhead (85 score) by flooding the entire routing table every 30 seconds. EIGRP produced the lowest overhead (15 score) by transmitting only bounded delta updates.", bold_prefix="Protocol Overhead: ")
     add_bullet(doc, "OSPF consumed the highest router CPU and RAM (85%) maintaining the global LSDB and calculating Dijkstra trees, whereas RIP consumed negligible processing power (20%).", bold_prefix="Resource Utilization: ")
 
-    add_screenshot_box(doc, "Cisco Packet Tracer Screenshot: Router R1 routing table under OSPF ('show ip route ospf') showing intra-area routes [110/cost]")
-    add_screenshot_box(doc, "Cisco Packet Tracer Screenshot: Router R1 routing table under EIGRP ('show ip route eigrp') displaying feasible successor routes [90/metric]")
-    add_screenshot_box(doc, "Cisco Packet Tracer Screenshot: OSPF neighbor adjacency table ('show ip ospf neighbor') verifying FULL state with DR/BDR")
+    add_image_figure(doc, 
+        os.path.join(WORKSPACE_DIR, "exp13/screenshot_r1_ospf_routes.png"), 
+        "Figure 13.3: Cisco Packet Tracer Screenshot — Router R1 OSPF Routing Table ('show ip route ospf')",
+        width=Inches(6.2)
+    )
+    add_image_figure(doc, 
+        os.path.join(WORKSPACE_DIR, "exp13/screenshot_r1_eigrp_routes.png"), 
+        "Figure 13.4: Cisco Packet Tracer Screenshot — Router R1 EIGRP Routing Table ('show ip route eigrp')",
+        width=Inches(6.2)
+    )
+    add_image_figure(doc, 
+        os.path.join(WORKSPACE_DIR, "exp13/screenshot_r1_ospf_neighbor.png"), 
+        "Figure 13.5: Cisco Packet Tracer Screenshot — OSPF and EIGRP Neighbor Adjacencies Verification",
+        width=Inches(6.2)
+    )
 
     add_heading_1(doc, "PRECAUTIONS")
     add_bullet(doc, "In OSPF, verify that wildcard masks (inverse masks) are used in 'network' statements rather than regular subnet masks.")

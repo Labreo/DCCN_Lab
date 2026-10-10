@@ -5,6 +5,7 @@ VLSM Subnetting with Dynamic IP Addressing (DHCP)
 """
 
 import os
+from docx.shared import Inches
 from builder_helpers import (
     add_exp_header_block, add_heading_1, add_heading_2,
     add_paragraph, add_bullet, add_table_data, add_image_figure,
@@ -207,8 +208,16 @@ Pool ENG_POOL :
  Pending event                  : none"""
     add_code_block(doc, dhcp_binding_out)
 
-    add_screenshot_box(doc, "Cisco Packet Tracer Screenshot: Client PC IP Configuration window showing DHCP request successful with IP 192.168.1.11 and Subnet Mask 255.255.255.192 (/26)")
-    add_screenshot_box(doc, "Cisco Packet Tracer Screenshot: Router R1 executing 'show ip dhcp binding' displaying active client leases and MAC address associations")
+    add_image_figure(doc, 
+        os.path.join(WORKSPACE_DIR, "exp11/screenshot_pc_dhcp_gui.png"), 
+        "Figure 11.2: Cisco Packet Tracer Screenshot — PC1 IP Configuration Dialog with Successful DHCP Dynamic Assignment (/26)",
+        width=Inches(6.0)
+    )
+    add_image_figure(doc, 
+        os.path.join(WORKSPACE_DIR, "exp11/screenshot_r1_dhcp_binding.png"), 
+        "Figure 11.3: Cisco Packet Tracer Screenshot — Router R1 'show ip dhcp binding' Active Client Leases",
+        width=Inches(6.2)
+    )
 
     add_heading_1(doc, "PRECAUTIONS")
     add_bullet(doc, "Always use 'no auto-summary' in routing protocols when implementing VLSM; otherwise, routers will summarize subnets to Class C /24 boundaries and break routing.")

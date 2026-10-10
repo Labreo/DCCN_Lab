@@ -5,6 +5,7 @@ Multiplexing and Spread Spectrum Simulator: FDM, WDM, TDM, DSSS
 """
 
 import os
+from docx.shared import Inches
 from builder_helpers import (
     add_exp_header_block, add_heading_1, add_heading_2,
     add_paragraph, add_bullet, add_table_data, add_image_figure,
@@ -139,7 +140,11 @@ def simulate_tdm():
     ]
     add_table_data(doc, headers_perf, rows_perf, col_widths=[1.5, 1.2, 1.1, 1.0, 1.0, 1.7])
 
-    add_screenshot_box(doc, "Terminal Screenshot: Execution of multiplexing_simulator.py displaying automated MSE fidelity scores, channel SNR calculations, and successful signal reconstruction verification")
+    add_image_figure(doc, 
+        os.path.join(WORKSPACE_DIR, "exp15/screenshot_terminal_multiplexing.png"), 
+        "Figure 15.5: Terminal Execution Screenshot — Python Multiplexing Simulator Telemetry and MSE Reconstruction Scores",
+        width=Inches(6.2)
+    )
 
     add_heading_1(doc, "PRECAUTIONS")
     add_bullet(doc, "In FDM, maintain sufficient guard band spacing between carrier frequencies to prevent adjacent channel spectral overlap and cross-talk.")

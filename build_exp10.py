@@ -203,8 +203,16 @@ C        192.168.10.224/27 is directly connected, GigabitEthernet0/0/2
 L        192.168.10.226/32 is directly connected, GigabitEthernet0/0/2"""
     add_code_block(doc, r1_route_out)
 
-    add_screenshot_box(doc, "Cisco Packet Tracer Screenshot: Router R1 'show ip route' displaying all 8 FLSM subnets with static and connected entries")
-    add_screenshot_box(doc, "Cisco Packet Tracer Screenshot: Successful ICMP ping from PC1 (192.168.10.2) to remote PC3 (192.168.10.66) across static routes")
+    add_image_figure(doc, 
+        os.path.join(WORKSPACE_DIR, "exp10/screenshot_r1_show_ip_route.png"), 
+        "Figure 10.2: Cisco Packet Tracer Screenshot — Router R1 'show ip route' Displaying 8 FLSM Subnets",
+        width=Inches(6.2)
+    )
+    add_image_figure(doc, 
+        os.path.join(WORKSPACE_DIR, "exp10/screenshot_pc1_ping_pc3.png"), 
+        "Figure 10.3: Cisco Packet Tracer Screenshot — PC1 Successful ICMP Ping and Traceroute to PC3 (192.168.10.66)",
+        width=Inches(6.2)
+    )
 
     add_heading_1(doc, "PRECAUTIONS")
     add_bullet(doc, "Verify that subnet mask 255.255.255.224 is consistently applied on all devices; mixing /24 and /27 leads to routing conflicts.")

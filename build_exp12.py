@@ -5,6 +5,7 @@ Dynamic Routing Algorithms in Python: Link State, Distance Vector, Path Vector
 """
 
 import os
+from docx.shared import Inches
 from builder_helpers import (
     add_exp_header_block, add_heading_1, add_heading_2,
     add_paragraph, add_bullet, add_table_data, add_image_figure,
@@ -223,8 +224,16 @@ Destination Subnet   | Next Hop Peer   | Autonomous System Path (AS-PATH)
 SUCCESS: Path Vector Routing eliminated all routing loops!"""
     add_code_block(doc, exp12_out)
 
-    add_screenshot_box(doc, "Terminal Screenshot: Execution of python3 main.py demonstrating Link State Routing SPF tree recalculation and dynamic link failure response")
-    add_screenshot_box(doc, "Terminal Screenshot: Execution of Distance Vector Bellman-Ford multi-round convergence and BGP Path Vector AS-PATH loop rejection logs")
+    add_image_figure(doc, 
+        os.path.join(WORKSPACE_DIR, "exp12/screenshot_terminal_lsr.png"), 
+        "Figure 12.1: Terminal Execution Screenshot — Link State Routing (Dijkstra SPF) Recalculation upon Link Failure",
+        width=Inches(6.2)
+    )
+    add_image_figure(doc, 
+        os.path.join(WORKSPACE_DIR, "exp12/screenshot_terminal_dvr_pvr.png"), 
+        "Figure 12.2: Terminal Execution Screenshot — Distance Vector Multi-Iteration Convergence and BGP Path Vector Loop Avoidance",
+        width=Inches(6.2)
+    )
 
     add_heading_1(doc, "PRECAUTIONS")
     add_bullet(doc, "Ensure Dijkstra priority queue keys are updated correctly upon discovering shorter distance relaxations.")
